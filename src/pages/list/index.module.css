@@ -1,4 +1,7 @@
 .list {
     height: 100vh;
     background-image: linear-gradient(#f4f0f3, #eaf3f7);
+    width: 100%;
+    position: fixed;
+    display: flex;
 }
