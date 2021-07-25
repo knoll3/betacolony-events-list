@@ -3,6 +3,8 @@ import { ColonyClient } from "@colony/colony-js";
 import { Log } from "ethers/providers";
 import { getLogs } from "@colony/colony-js";
 import { EventFilter } from "ethers";
+import { getUserAddress } from "utils/helper";
+import { ColonyRole } from "@colony/colony-js";
 
 export function useDataEvents(
     colonyClient: ColonyClient,
@@ -19,8 +21,25 @@ export function useDataEvents(
         [colonyClient.filters]
     );
 
+    const eventFilter = useGetEventFilter(eventType, filters);
+
+    useEffect(() => {
+        if (!colonyClient.provider) return;
+        (async () => {
+            const mergedLogs = await mergeLogs(colonyClient, eventFilter);
+            setLogs(mergedLogs);
+        })();
+    }, [colonyClient, eventFilter]);
+
+    return logs;
+}
+
+function useGetEventFilter(
+    eventType: string,
+    filters: ColonyClient["filters"]
+): EventFilter {
     // Select the eventFilter based on the given eventType
-    const eventFilter = React.useMemo(() => {
+    return React.useMemo(() => {
         if (eventType === "ColonyInitialised") {
             return filters.ColonyInitialised
                 ? filters.ColonyInitialised(null, null)
@@ -46,25 +65,24 @@ export function useDataEvents(
             return {} as EventFilter;
         }
     }, [filters, eventType]);
+}
 
-    useEffect(() => {
-        if (!colonyClient.provider) return;
-        (async () => {
-            const eventLogs = await getLogs(colonyClient, eventFilter);
-            const parsedLogs = eventLogs.map((event) =>
-                colonyClient.interface.parseLog(event)
-            );
+async function mergeLogs(
+    colonyClient: ColonyClient,
+    eventFilter: EventFilter
+): Promise<any[]> {
+    const eventLogs = await getLogs(colonyClient, eventFilter);
+    const parsedLogs = eventLogs.map((event) =>
+        colonyClient.interface.parseLog(event)
+    );
 
-            // Merge the event logs and the parsed logs together
-            const mergedLogs: any[] = [];
-            eventLogs.forEach((event) => {
-                const parsedLog = colonyClient.interface.parseLog(event);
-                mergedLogs.push({ ...parsedLog, ...event });
-            });
+    // Merge the event logs and the parsed logs together
+    const mergedLogs: any[] = [];
+    for (let event of eventLogs) {
+        const parsedLog = colonyClient.interface.parseLog(event);
+        const userAddress = await getUserAddress(colonyClient, parsedLog);
+        mergedLogs.push({ ...parsedLog, ...event, userAddress });
+    }
 
-            setLogs(mergedLogs);
-        })();
-    }, [colonyClient, eventFilter]);
-
-    return logs;
+    return mergedLogs;
 }
