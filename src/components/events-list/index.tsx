@@ -7,5 +7,7 @@ export const EventsList: React.FC = () => {
     const colonyClient = useColonyClient();
     const payoutClaimedEventData = usePayoutClaimedEvent(colonyClient);
 
+    console.log(payoutClaimedEventData);
+
     return <div className={styles.eventsList}></div>;
 };

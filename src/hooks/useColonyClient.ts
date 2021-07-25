@@ -32,6 +32,7 @@ export function useColonyClient() {
     const [colonyClient, setColonyClient] = useState({} as ColonyClient);
 
     useEffect(() => {
+        if (Object.keys(colonyClient).length !== 0) return;
         (async () => {
             // Get the colony client instance for the betacolony
             const _colonyClient = await networkClient.getColonyClient(
@@ -39,7 +40,7 @@ export function useColonyClient() {
             );
             setColonyClient(_colonyClient);
         })();
-    });
+    }, [MAINNET_BETACOLONY_ADDRESS, networkClient]);
 
     return colonyClient;
 }
