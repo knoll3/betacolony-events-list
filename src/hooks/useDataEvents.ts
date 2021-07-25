@@ -12,7 +12,7 @@ export function useDataEvents(
         | "PayoutClaimed"
         | "DomainAdded"
 ) {
-    const [eventLogs, setEventLogs] = React.useState([] as Log[]);
+    const [logs, setLogs] = React.useState([] as any[]);
 
     const filters = React.useMemo(
         () => colonyClient.filters || ({} as ColonyClient["filters"]),
@@ -50,10 +50,21 @@ export function useDataEvents(
     useEffect(() => {
         if (!colonyClient.provider) return;
         (async () => {
-            const _eventLogs = await getLogs(colonyClient, eventFilter);
-            setEventLogs(_eventLogs);
+            const eventLogs = await getLogs(colonyClient, eventFilter);
+            const parsedLogs = eventLogs.map((event) =>
+                colonyClient.interface.parseLog(event)
+            );
+
+            // Merge the event logs and the parsed logs together
+            const mergedLogs: any[] = [];
+            eventLogs.forEach((event) => {
+                const parsedLog = colonyClient.interface.parseLog(event);
+                mergedLogs.push({ ...parsedLog, ...event });
+            });
+
+            setLogs(mergedLogs);
         })();
     }, [colonyClient, eventFilter]);
 
-    return eventLogs;
+    return logs;
 }
