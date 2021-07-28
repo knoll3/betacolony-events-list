@@ -1,7 +1,6 @@
 import { ColonyClient } from "@colony/colony-js";
 import { utils } from "ethers";
 import React, { useEffect } from "react";
-import { MergedLog } from "./useGetLogs";
 
 export function useUserAddress(
     fundingPotId: string | undefined,

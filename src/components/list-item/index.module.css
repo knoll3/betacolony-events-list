@@ -14,6 +14,13 @@ b {
 }
 
 .content {
+    /* 
+		 * The instructions say to add a top and bottom padding of 26px. This doesn't 
+		 * work well on an element with a fixed height, since the padding will simply be  
+     * added to the height. It's better to set a fixed height and then center 
+		 * the content vertically. 
+		 */
+
     padding-left: 20px;
     padding-right: 20px;
     height: 100%;
@@ -22,7 +29,6 @@ b {
 }
 
 .icon {
-    /* width: 90px; */
     margin-right: 20px;
 }
 
