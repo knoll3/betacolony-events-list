@@ -5,6 +5,7 @@ import { useLogDate } from "hooks/useLogDate";
 import { useUserAddress } from "hooks/useUserAddress";
 import React from "react";
 import styles from "./index.module.css";
+import blockies from "blockies";
 
 // ListItem should accept colonyClient and provider as props to load the
 // user address and the block timestamp. The address and timestamp are being
@@ -21,49 +22,50 @@ export const ListItem: React.FC<ListItemProps> = ({
     colonyClient,
     provider,
 }) => {
-    // const secondaryText = useLogDate(log.blockHash, provider);
     const secondaryText = log.date;
     let userAddress = useUserAddress(log.fundingPotId, colonyClient);
     userAddress = log.userAddress || userAddress;
-    // const userAddress = log.userAddress || "";
+    const icon = blockies({ seed: userAddress || log.blockHash }).toDataURL();
 
-    let primaryText = <span></span>;
+    let primaryText = <React.Fragment></React.Fragment>;
     switch (log.name) {
         case "ColonyInitialised": {
             primaryText = (
-                <span>Congratulations! It's a beautiful baby colony!</span>
+                <React.Fragment>
+                    Congratulations! It's a beautiful baby colony!
+                </React.Fragment>
             );
             break;
         }
         case "ColonyRoleSet": {
             primaryText = (
-                <span>
+                <React.Fragment>
                     <b>{log.role || ""}</b> role assigned to user
                     <b>{userAddress}</b> in domain
                     <b>{log.domainId ? log.domainId.toString() : ""}</b>.
-                </span>
+                </React.Fragment>
             );
             break;
         }
         case "PayoutClaimed": {
             primaryText = (
-                <span>
+                <React.Fragment>
                     User <b>{userAddress}</b> claimed{" "}
                     <b>
                         {log.amount || ""}
                         {log.token || ""}
                     </b>{" "}
                     payout from pot <b>{log.fundingPotId || ""}</b>.
-                </span>
+                </React.Fragment>
             );
             break;
         }
         case "DomainAdded": {
             primaryText = (
-                <span>
+                <React.Fragment>
                     Domain <b>{log.domainId ? log.domainId.toString() : ""}</b>.
                     added.
-                </span>
+                </React.Fragment>
             );
             break;
         }
@@ -75,8 +77,13 @@ export const ListItem: React.FC<ListItemProps> = ({
     return (
         <div className={styles.listItem}>
             <div className={styles.content}>
-                <div className={styles.primaryText}>{primaryText}</div>
-                <div className={styles.secondaryText}>{secondaryText}</div>
+                <div className={styles.icon}>
+                    <img className={styles.iconImg} src={icon} />
+                </div>
+                <div className={styles.text}>
+                    <div className={styles.primaryText}>{primaryText}</div>
+                    <div className={styles.secondaryText}>{secondaryText}</div>
+                </div>
             </div>
         </div>
     );

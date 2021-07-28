@@ -17,6 +17,9 @@ export const EventsList: React.FC = () => {
                     provider={provider}
                 />
             ))}
+            {logs.length === 0 && (
+                <div className={styles.loading}>Loading. Please wait...</div>
+            )}
         </div>
     );
 };

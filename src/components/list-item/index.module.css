@@ -1,22 +1,61 @@
+b {
+    font-weight: 700;
+}
+
 .listItem {
     height: 90px;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid rgba(62, 118, 244, 0.14);
+}
+
+.listItem:hover {
+    height: 90px;
+    border-bottom: 1px solid rgba(62, 118, 244, 0.14);
+    background: rgba(100, 140, 232, 0.14);
 }
 
 .content {
-    padding: 26px 20px 26px 20px;
+    padding-left: 20px;
+    padding-right: 20px;
     height: 100%;
     display: flex;
     align-items: center;
+}
+
+.icon {
+    /* width: 90px; */
+    margin-right: 20px;
+}
+
+.iconImg {
+    width: 37px;
+    height: 37px;
+    border-radius: 37px;
+}
+
+.text {
+    display: flex;
     flex-direction: column;
+    align-items: center;
+    flex: 1;
+    overflow-x: hidden;
+    font-weight: 400;
+    color: #333;
 }
 
 .primaryText {
+    font-size: 14px;
     width: 100%;
     text-align: left;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow-x: hidden;
+
+    margin-bottom: 5px;
 }
 
 .secondaryText {
+    font-size: 12px;
     width: 100%;
     text-align: left;
+    color: #777;
 }

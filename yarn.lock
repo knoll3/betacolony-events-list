@@ -1755,6 +1755,11 @@
   dependencies:
     "@babel/types" "^7.3.0"
 
+"@types/blockies@^0.0.2":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@types/blockies/-/blockies-0.0.2.tgz#8fb66ade3687f167e7d5b1790593bc34226e49ed"
+  integrity sha512-Or6q7y+jG8XSAfew286TgGxzj/KeGP87OFLxe/Lhm3yOKXAipWkcggp+wCLfnuntL5R8bSmUSIgsH2cgjFMbMw==
+
 "@types/eslint@^7.2.6":
   version "7.28.0"
   resolved "https://registry.yarnpkg.com/@types/eslint/-/eslint-7.28.0.tgz#7e41f2481d301c68e14f483fe10b017753ce8d5a"
@@ -2851,6 +2856,11 @@ bindings@^1.5.0:
   integrity sha512-p2q/t/mhvuOj/UeLlV6566GD/guowlr0hHxClI0W9m7MWYkL1F0hLo+0Aexs9HSPCtR1SXQ0TD3MMKrXZajbiQ==
   dependencies:
     file-uri-to-path "1.0.0"
+
+blockies@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/blockies/-/blockies-0.0.2.tgz#22ad58da4f6b382bc79bf4386c5820c70047e4ed"
+  integrity sha1-Iq1Y2k9rOCvHm/Q4bFggxwBH5O0=
 
 bluebird@^3.5.5:
   version "3.7.2"

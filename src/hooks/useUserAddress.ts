@@ -7,7 +7,7 @@ export function useUserAddress(
     fundingPotId: string | undefined,
     colonyClient: ColonyClient | null
 ) {
-    const [userAddress, setUserAddress] = React.useState("loading...");
+    const [userAddress, setUserAddress] = React.useState<string>();
 
     useEffect(() => {
         (async () => {
