@@ -5,7 +5,7 @@ import React from "react";
 import styles from "./index.module.css";
 import blockies from "blockies";
 
-// ListItem should accept colonyClient and provider as props to load the
+// ListItem should accept colonyClient as props to load the
 // user address. It's easier and far faster to load the address in
 // the useUserAddress hook.
 interface ListItemProps {
@@ -17,7 +17,7 @@ export const ListItem: React.FC<ListItemProps> = ({ log, colonyClient }) => {
     const secondaryText = log.date;
 
     // Load the user address for the PayoutClaimed event type.
-    // This is far faster than loading it in the useLogDate hook.
+    // This is far faster than loading it in the useGetLogs hook.
     // As a result you will see the items load and the addresses load
     // afterward.
     let userAddress = useUserAddress(log.fundingPotId, colonyClient);
