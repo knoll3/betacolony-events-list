@@ -1,0 +1,22 @@
+.listItem {
+    height: 90px;
+    border-bottom: 1px solid black;
+}
+
+.content {
+    padding: 26px 20px 26px 20px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.primaryText {
+    width: 100%;
+    text-align: left;
+}
+
+.secondaryText {
+    width: 100%;
+    text-align: left;
+}

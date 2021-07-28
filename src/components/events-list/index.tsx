@@ -1,13 +1,22 @@
 import React from "react";
 import styles from "./index.module.css";
-import { useColonyClient } from "hooks/useColonyClient";
-import { useDataEvents } from "hooks/useDataEvents";
+import { useGetLogs } from "hooks/useGetLogs";
+import { ListItem } from "components/list-item";
+import { useLogDate } from "hooks/useLogDate";
 
 export const EventsList: React.FC = () => {
-    const colonyClient = useColonyClient();
-    const dataEvents = useDataEvents(colonyClient, "DomainAdded");
+    const [logs, colonyClient, provider] = useGetLogs();
 
-    console.log(dataEvents);
-
-    return <div className={styles.eventsList}></div>;
+    return (
+        <div className={styles.eventsList}>
+            {logs.map((log, i) => (
+                <ListItem
+                    key={i}
+                    log={log}
+                    colonyClient={colonyClient}
+                    provider={provider}
+                />
+            ))}
+        </div>
+    );
 };

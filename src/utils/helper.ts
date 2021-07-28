@@ -6,7 +6,7 @@ export async function getUserAddress(
     singleLog: any
 ) {
     const humanReadableFundingPotId = new utils.BigNumber(
-        singleLog.values.domainId
+        singleLog.values.fundingPotId
     ).toString();
 
     const { associatedTypeId } = await colonyClient.getFundingPot(
